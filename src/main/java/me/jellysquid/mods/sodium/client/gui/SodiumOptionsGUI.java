@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.client.gui;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.data.fingerprint.HashedFingerprint;
 import me.jellysquid.mods.sodium.client.gui.console.Console;
@@ -16,7 +17,7 @@ import me.jellysquid.mods.sodium.client.util.Dim2i;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.VideoSettingsScreen;
@@ -249,7 +250,7 @@ public class SodiumOptionsGUI extends Screen implements ScreenPromptable {
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack drawContext, int mouseX, int mouseY, float delta) {
         super.renderBackground(drawContext);
 
         this.updateControls();
@@ -302,7 +303,7 @@ public class SodiumOptionsGUI extends Screen implements ScreenPromptable {
         return this.controls.stream();
     }
 
-    private void renderOptionTooltip(GuiGraphics drawContext, ControlElement<?> element) {
+    private void renderOptionTooltip(PoseStack drawContext, ControlElement<?> element) {
         Dim2i dim = element.getDimensions();
 
         int textPadding = 3;
@@ -331,10 +332,10 @@ public class SodiumOptionsGUI extends Screen implements ScreenPromptable {
             boxY -= boxYLimit - boxYCutoff;
         }
 
-        drawContext.fillGradient(boxX, boxY, boxX + boxWidth, boxY + boxHeight, 0xE0000000, 0xE0000000);
+        Gui.fillGradient(drawContext, boxX, boxY, boxX + boxWidth, boxY + boxHeight, 0xE0000000, 0xE0000000);
 
         for (int i = 0; i < tooltip.size(); i++) {
-            drawContext.drawString(this.font, tooltip.get(i), boxX + textPadding, boxY + textPadding + (i * 12), 0xFFFFFFFF);
+            Gui.drawString(drawContext, this.font, tooltip.get(i), boxX + textPadding, boxY + textPadding + (i * 12), 0xFFFFFFFF);
         }
     }
 

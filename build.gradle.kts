@@ -153,7 +153,7 @@ dependencies {
 
     // Fabric API
     "modIncludeImplementation"(fAPIModule("fabric-api-base"))
-    "modIncludeImplementation"(fAPIModule("fabric-block-view-api-v2"))
+    "modIncludeImplementation"(fAPIModule("fabric-block-api-v1"))
     "modIncludeImplementation"(fAPIModule("fabric-rendering-fluids-v1"))
     "modIncludeImplementation"(fAPIModule("fabric-rendering-data-attachment-v1"))
     "modIncludeImplementation"(fAPIModule("fabric-resource-loader-v0"))

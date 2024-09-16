@@ -3,7 +3,9 @@ package org.embeddedt.embeddium.render.frapi;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.ChunkBuildBuffers;
 import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderContext;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3fc;
 
 public interface FRAPIRenderHandler {
@@ -17,6 +19,8 @@ public interface FRAPIRenderHandler {
         } catch(Throwable ignored) {}
         return indigoPresent;
     }
+
+    boolean isFaceCulled(@Nullable Direction face);
 
     void reset();
 

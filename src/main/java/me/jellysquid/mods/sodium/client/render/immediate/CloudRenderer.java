@@ -133,7 +133,7 @@ public class CloudRenderer {
             this.rebuildGeometry(bufferBuilder, cloudDistance, centerCellX, centerCellZ);
 
             if (this.vertexBuffer == null) {
-                this.vertexBuffer = new VertexBuffer(VertexBuffer.Usage.DYNAMIC);
+                this.vertexBuffer = new VertexBuffer();
             }
 
             this.vertexBuffer.bind();

@@ -11,6 +11,7 @@ import net.minecraft.server.packs.resources.ReloadInstance;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import me.jellysquid.mods.sodium.client.compatibility.checks.ResourcePackScanner;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL32C;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -87,8 +88,8 @@ public class MinecraftClientMixin {
     /**
      * Check for problematic core shader resource packs after the initial game launch.
      */
-    @Inject(method = "setInitialScreen", at = @At("TAIL"))
-    private void postInit(RealmsClient realms, ReloadInstance reload, GameConfig.QuickPlayData quickPlay, CallbackInfo ci) {
+    @Inject(method = "setScreen", at = @At("TAIL"))
+    private void postInit(@Nullable Screen guiScreen, CallbackInfo ci) {
         ResourcePackScanner.checkIfCoreShaderLoaded(this.resourceManager);
     }
 

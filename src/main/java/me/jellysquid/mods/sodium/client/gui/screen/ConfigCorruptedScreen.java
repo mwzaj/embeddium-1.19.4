@@ -1,8 +1,9 @@
 package me.jellysquid.mods.sodium.client.gui.screen;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -54,20 +55,20 @@ public class ConfigCorruptedScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack drawContext, int mouseX, int mouseY, float delta) {
         this.renderBackground(drawContext);
 
         super.render(drawContext, mouseX, mouseY, delta);
 
-        drawContext.drawString(this.font, Component.literal("Sodium Renderer"), 32, 32, 0xffffff);
-        drawContext.drawString(this.font, Component.literal("Could not load configuration file"), 32, 48, 0xff0000);
+        Gui.drawString(drawContext, this.font, Component.literal("Sodium Renderer"), 32, 32, 0xffffff);
+        Gui.drawString(drawContext, this.font, Component.literal("Could not load configuration file"), 32, 48, 0xff0000);
 
         for (int i = 0; i < TEXT_BODY.size(); i++) {
             if (TEXT_BODY.get(i).getString().isEmpty()) {
                 continue;
             }
 
-            drawContext.drawString(this.font, TEXT_BODY.get(i), 32, 68 + (i * 12), 0xffffff);
+            Gui.drawString(drawContext, this.font, TEXT_BODY.get(i), 32, 68 + (i * 12), 0xffffff);
         }
     }
 }

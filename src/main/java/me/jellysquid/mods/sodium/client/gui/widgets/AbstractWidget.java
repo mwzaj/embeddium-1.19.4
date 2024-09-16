@@ -1,10 +1,12 @@
 package me.jellysquid.mods.sodium.client.gui.widgets;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.InputType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ComponentPath;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -26,20 +28,20 @@ public abstract class AbstractWidget implements Renderable, GuiEventListener, Na
         this.font = Minecraft.getInstance().font;
     }
 
-    protected void drawString(GuiGraphics drawContext, String str, int x, int y, int color) {
-        drawContext.drawString(this.font, str, x, y, color);
+    protected void drawString(PoseStack drawContext, String str, int x, int y, int color) {
+        Gui.drawString(drawContext, this.font, str, x, y, color);
     }
 
-    protected void drawString(GuiGraphics drawContext, Component text, int x, int y, int color) {
-        drawContext.drawString(this.font, text, x, y, color);
+    protected void drawString(PoseStack drawContext, Component text, int x, int y, int color) {
+        Gui.drawString(drawContext, this.font, text, x, y, color);
     }
 
     public boolean isHovered() {
         return this.hovered;
     }
 
-    protected void drawRect(GuiGraphics drawContext, int x1, int y1, int x2, int y2, int color) {
-        drawContext.fill(x1, y1, x2, y2, color);
+    protected void drawRect(PoseStack drawContext, int x1, int y1, int x2, int y2, int color) {
+        Gui.fill(drawContext, x1, y1, x2, y2, color);
     }
 
     protected void playClickSound() {
@@ -92,10 +94,14 @@ public abstract class AbstractWidget implements Renderable, GuiEventListener, Na
         }
     }
 
-    protected void drawBorder(GuiGraphics drawContext, int x1, int y1, int x2, int y2, int color) {
-        drawContext.fill(x1, y1, x2, y1 + 1, color);
-        drawContext.fill(x1, y2 - 1, x2, y2, color);
-        drawContext.fill(x1, y1, x1 + 1, y2, color);
-        drawContext.fill(x2 - 1, y1, x2, y2, color);
+    protected void drawBorder(PoseStack drawContext, int x1, int y1, int x2, int y2, int color) {
+        Gui.fill(drawContext, x1, y1, x2, y1 + 1, color);
+        Gui.fill(drawContext, x1, y2 - 1, x2, y2, color);
+        Gui.fill(drawContext, x1, y1, x1 + 1, y2, color);
+        Gui.fill(drawContext, x2 - 1, y1, x2, y2, color);
     }
+    protected boolean keySelected(int keyCode) {
+        return keyCode == InputConstants.KEY_SPACE || keyCode == InputConstants.KEY_RETURN;
+    }
+
 }

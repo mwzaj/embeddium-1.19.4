@@ -1,10 +1,10 @@
 package me.jellysquid.mods.sodium.client.gui.widgets;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.util.Dim2i;
 import net.minecraft.client.gui.ComponentPath;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.client.gui.navigation.CommonInputs;
 import net.minecraft.client.gui.navigation.FocusNavigationEvent;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
@@ -42,7 +42,7 @@ public class FlatButtonWidget extends AbstractWidget implements Renderable {
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack drawContext, int mouseX, int mouseY, float delta) {
         if (!this.visible) {
             return;
         }
@@ -105,7 +105,7 @@ public class FlatButtonWidget extends AbstractWidget implements Renderable {
         if (!this.isFocused())
             return false;
 
-        if (CommonInputs.selected(keyCode)) {
+        if (keySelected(keyCode)) {
             doAction();
             return true;
         }

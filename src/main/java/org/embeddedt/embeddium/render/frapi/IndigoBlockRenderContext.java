@@ -25,7 +25,6 @@ import org.joml.Vector3fc;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.util.function.Supplier;
 
 /**
  * Adaptation of Indigo's {@link BlockRenderContext} that delegates back to the Sodium renderer.

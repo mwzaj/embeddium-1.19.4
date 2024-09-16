@@ -1,10 +1,11 @@
 package me.jellysquid.mods.sodium.client.gui.prompt;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.gui.widgets.AbstractWidget;
 import me.jellysquid.mods.sodium.client.gui.widgets.FlatButtonWidget;
 import me.jellysquid.mods.sodium.client.util.Dim2i;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
@@ -48,24 +49,24 @@ public class ScreenPrompt implements GuiEventListener, Renderable {
         this.actionButton.setStyle(createButtonStyle());
     }
 
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        var matrices = drawContext.pose();
-        matrices.pushPose();
-        matrices.translate(0.0f, 0.0f, 1000.0f);
+    public void render(PoseStack drawContext, int mouseX, int mouseY, float delta) {
+
+        drawContext.pushPose();
+        drawContext.translate(0.0f, 0.0f, 1000.0f);
 
         var parentDimensions = this.parent.getDimensions();
 
-        drawContext.fill(0, 0, parentDimensions.width(), parentDimensions.height(), 0x70090909);
+        Gui.fill(drawContext, 0, 0, parentDimensions.width(), parentDimensions.height(), 0x70090909);
 
-        matrices.translate(0.0f, 0.0f, 50.0f);
+        drawContext.translate(0.0f, 0.0f, 50.0f);
 
         int boxX = (parentDimensions.width() / 2) - (width / 2);
         int boxY = (parentDimensions.height() / 2) - (height / 2);
 
-        drawContext.fill(boxX, boxY, boxX + width, boxY + height, 0xFF171717);
-        drawContext.renderOutline(boxX, boxY, width, height, 0xFF121212);
+        Gui.fill(drawContext, boxX, boxY, boxX + width, boxY + height, 0xFF171717);
+        Gui.renderOutline(drawContext, boxX, boxY, width, height, 0xFF121212);
 
-        matrices.translate(0.0f, 0.0f, 50.0f);
+        drawContext.translate(0.0f, 0.0f, 50.0f);
 
         int padding = 5;
 
@@ -81,7 +82,7 @@ public class ScreenPrompt implements GuiEventListener, Renderable {
             var formatted = textRenderer.split(paragraph, textMaxWidth);
 
             for (var line : formatted) {
-                drawContext.drawString(textRenderer, line, textX, textY, 0xFFFFFFFF, true);
+                textRenderer.drawShadow(drawContext, line, textX, textY, 0xFFFFFFFF);
                 textY += textRenderer.lineHeight + 2;
             }
 
@@ -92,7 +93,7 @@ public class ScreenPrompt implements GuiEventListener, Renderable {
             button.render(drawContext, mouseX, mouseY, delta);
         }
 
-        matrices.popPose();
+        drawContext.popPose();
     }
 
     private static FlatButtonWidget.Style createButtonStyle() {

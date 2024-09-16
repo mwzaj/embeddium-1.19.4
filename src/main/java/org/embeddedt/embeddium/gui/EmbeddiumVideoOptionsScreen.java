@@ -2,6 +2,7 @@ package org.embeddedt.embeddium.gui;
 
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.data.fingerprint.HashedFingerprint;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
@@ -18,7 +19,7 @@ import me.jellysquid.mods.sodium.client.util.Dim2i;
 import net.caffeinemc.mods.sodium.api.util.ColorARGB;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.VideoSettingsScreen;
 import net.minecraft.client.renderer.texture.SimpleTexture;
@@ -287,25 +288,25 @@ public class EmbeddiumVideoOptionsScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics gfx) {
+    public void renderBackground(PoseStack gfx) {
         super.renderBackground(gfx);
 
         // Render watermarks
-        gfx.setColor(ColorARGB.unpackRed(DefaultColors.ELEMENT_ACTIVATED) / 255f, ColorARGB.unpackGreen(DefaultColors.ELEMENT_ACTIVATED) / 255f, ColorARGB.unpackBlue(DefaultColors.ELEMENT_ACTIVATED) / 255f, 0.8F);
+        RenderSystem.setShaderColor(ColorARGB.unpackRed(DefaultColors.ELEMENT_ACTIVATED) / 255f, ColorARGB.unpackGreen(DefaultColors.ELEMENT_ACTIVATED) / 255f, ColorARGB.unpackBlue(DefaultColors.ELEMENT_ACTIVATED) / 255f, 0.8F);
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(770, 1);
-        gfx.blit(LOGO_LOCATION, this.logoDim.x(), this.logoDim.y(), this.logoDim.width(), this.logoDim.height(), 0.0F, 0.0F, LOGO_SIZE, LOGO_SIZE, LOGO_SIZE, LOGO_SIZE);
+        Gui.blit(gfx, this.logoDim.x(), this.logoDim.y(), this.logoDim.width(), this.logoDim.height(), 0.0F, 0.0F, LOGO_SIZE, LOGO_SIZE, LOGO_SIZE, LOGO_SIZE);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
-        gfx.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack drawContext, int mouseX, int mouseY, float delta) {
         this.renderBackground(drawContext);
         this.updateControls();
         this.frame.render(drawContext, mouseX, mouseY, delta);
