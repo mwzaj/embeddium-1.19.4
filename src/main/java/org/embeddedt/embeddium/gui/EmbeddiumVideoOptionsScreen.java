@@ -297,6 +297,7 @@ public class EmbeddiumVideoOptionsScreen extends Screen {
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(770, 1);
+        RenderSystem.setShaderTexture(0, LOGO_LOCATION);
         Gui.blit(gfx, this.logoDim.x(), this.logoDim.y(), this.logoDim.width(), this.logoDim.height(), 0.0F, 0.0F, LOGO_SIZE, LOGO_SIZE, LOGO_SIZE, LOGO_SIZE);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();

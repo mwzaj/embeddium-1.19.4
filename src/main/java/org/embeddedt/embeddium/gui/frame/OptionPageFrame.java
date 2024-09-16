@@ -184,7 +184,7 @@ public class OptionPageFrame extends AbstractFrame {
         this.drawBorder(drawContext, boxX, boxY, boxX + boxWidth, boxY + boxHeight, DefaultColors.ELEMENT_ACTIVATED);
 
         for (int i = 0; i < tooltip.size(); i++) {
-            Gui.drawString(drawContext, Minecraft.getInstance().font, tooltip.get(1), boxX + textPadding, boxY + textPadding + (i * 12), 0xFFFFFFFF);
+            Gui.drawString(drawContext, Minecraft.getInstance().font, tooltip.get(i), boxX + textPadding, boxY + textPadding + (i * 12), 0xFFFFFFFF);
         }
         drawContext.popPose();
     }
